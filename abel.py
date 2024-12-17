@@ -2,7 +2,6 @@ import streamlit as st
 import shelve
 
 # Load environment variables (assuming you have set them up)
-load_dotenv()
 
 # Using generativeai for Google Cloud Generative AI
 import google.generativeai as genai
