@@ -1,5 +1,4 @@
 import streamlit as st
-from dotenv import load_dotenv
 import shelve
 
 # Load environment variables (assuming you have set them up)
@@ -47,15 +46,15 @@ with st.sidebar:
         st.success("Chat history deleted.")
 
 # Display chat messages
-#for message in st.session_state.messages:
-   # avatar = USER_AVATAR if message["role"] == "user" else BOT_AVATAR
-  #  with st.chat_message(message["role"], avatar=avatar):
-       # st.markdown(message["content"])
+for message in st.session_state.messages:
+    avatar = USER_AVATAR if message["role"] == "user" else BOT_AVATAR
+    with st.chat_message(message["role"], avatar=avatar):
+        st.markdown(message["content"])
 
 # Main chat interface
 if prompt := st.chat_input("How can I help?"):
     # Add user input to the chat history
-   # st.session_state.messages.append({"role": "user", "content": prompt})
+    st.session_state.messages.append({"role": "user", "content": prompt})
     with st.chat_message("user", avatar=USER_AVATAR):
         st.markdown(prompt)
 
@@ -68,7 +67,7 @@ if prompt := st.chat_input("How can I help?"):
                response= model.generate_content(prompt)
                message_placeholder.markdown(response.text)
             print(response)
-            #st.session_state.messages.append({"role": "assistant", "content": full_response})
+            st.session_state.messages.append({"role": "assistant", "content": response.text})
 
         except Exception as e:
             message_placeholder.markdown("An error occurred while generating a response.")
